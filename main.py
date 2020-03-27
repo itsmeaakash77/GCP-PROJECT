@@ -54,7 +54,7 @@ def upload_photo():
     source_uri = 'gs://{}/{}'.format(CLOUD_STORAGE_BUCKET, blob.name)
     image = vision.types.Image(
         source=vision.types.ImageSource(gcs_image_uri=source_uri))
-    response=client.document_text_detection(image=image)
+  	response=vision_client.document_text_detection(image=image)
 
     docu = response.full_text_annotation.text
 
