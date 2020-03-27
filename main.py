@@ -26,7 +26,7 @@ def homepage():
     image_entities = list(query.fetch())
 
     # Return a Jinja2 HTML template and pass in image_entities as a parameter.
-    return render_template('homepage.html', image_entities=image_entities)
+    return render_template('homepage.HTML', image_entities=image_entities)
 
 
 @app.route('/upload_photo', methods=['GET', 'POST'])
@@ -53,7 +53,7 @@ def upload_photo():
     # Use the Cloud Vision client to detect a face for our image.
     source_uri = 'gs://{}/{}'.format(CLOUD_STORAGE_BUCKET, blob.name)
     image = vision.types.Image(source=vision.types.ImageSource(gcs_image_uri=source_uri))
-  	response=vision_client.document_text_detection(image=image)
+    response=vision_client.document_text_detection(image=image)
 
     docu = response.full_text_annotation.text
 
@@ -99,4 +99,4 @@ def server_error(e):
 if __name__ == '__main__':
     # This is used when running locally. Gunicorn is used to run the
     # application on Google App Engine. See entrypoint in app.yaml.
-    app.run(host='127.0.0.1', port=8080, debug=True)
+    app.run(host='127.0.0.1', port=8080, debug=True)    
