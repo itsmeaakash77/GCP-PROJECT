@@ -52,8 +52,7 @@ def upload_photo():
 
     # Use the Cloud Vision client to detect a face for our image.
     source_uri = 'gs://{}/{}'.format(CLOUD_STORAGE_BUCKET, blob.name)
-    image = vision.types.Image(
-        source=vision.types.ImageSource(gcs_image_uri=source_uri))
+    image = vision.types.Image(source=vision.types.ImageSource(gcs_image_uri=source_uri))
   	response=vision_client.document_text_detection(image=image)
 
     docu = response.full_text_annotation.text
