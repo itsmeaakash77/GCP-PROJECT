@@ -26,7 +26,7 @@ def homepage():
     image_entities = list(query.fetch())
 
     # Return a Jinja2 HTML template and pass in image_entities as a parameter.
-    return render_template('homepage.HTML', image_entities=image_entities)
+    return render_template('homepage.html', image_entities=image_entities)
 
 
 @app.route('/upload_photo', methods=['GET', 'POST'])
@@ -90,7 +90,7 @@ def upload_photo():
     entity = datastore.Entity(key)
     entity['blob_name'] = blob.name
     entity['image_public_url'] = blob.public_url
-    entity['timestamp'] = blob2.out
+    entity['timestamp'] = current_datetime
     entity['joy'] = docu
 
     # Save the new entity to Datastore.
