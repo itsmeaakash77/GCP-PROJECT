@@ -4,4 +4,5 @@ gunicorn==19.10.0; python_version < '3.0'
 google-cloud-vision==0.42.0
 google-cloud-storage==1.26.0
 google-cloud-datastore==1.11.0
-© 2020 GitHub, Inc.
+future==0.18.2
+google-cloud-texttospeech==1.0.1
