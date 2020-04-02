@@ -56,7 +56,21 @@ def upload_photo():
     response=vision_client.document_text_detection(image=image)
 
     docu = response.full_text_annotation.text
-
+    
+    
+    text_client= texttospeech.TextToSpeechClient()
+    synthesis_text= texttospeech.types.SynthesisInput(text=docu)
+    voice = texttospeech.types.VoiceSelectionParams(language_code='en-US',ssml_gender=texttospeech.enums.SsmlVoiceGender.NEUTRAL)
+    audio_config=texttospeech.types.AudioConfig(audio_encoding=texttospeech.enums.AudioEncoding.MP3)
+    audio_response=text_client.synthesize_speech(synthesis_text,voice,audio_config)
+    
+    blob1=bucket.blob('voice.mp3')
+    with open('output.mp3','wb') as out:
+       out.write(audio_response.audio_content)
+       print('content written')
+       blob1.upload_from_file(out)
+    
+    
     # Create a Cloud Datastore client.
     datastore_client = datastore.Client()
 
@@ -75,11 +89,11 @@ def upload_photo():
     # Construct the new entity using the key. Set dictionary values for entity
     # keys blob_name, storage_public_url, timestamp, and joy.
     entity = datastore.Entity(key)
-    entity['blob_name'] = blob.name
+    entity['blob_name'] = blob.out
     entity['image_public_url'] = blob.public_url
     entity['timestamp'] = current_datetime
     entity['joy'] = docu
-
+    
     # Save the new entity to Datastore.
     datastore_client.put(entity)
 
