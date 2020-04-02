@@ -7,7 +7,7 @@ from flask import Flask, redirect, render_template, request
 from google.cloud import datastore
 from google.cloud import storage
 from google.cloud import vision
-from google.cloud import texttospeech
+
 
 CLOUD_STORAGE_BUCKET = os.environ.get('CLOUD_STORAGE_BUCKET')
 
@@ -26,7 +26,7 @@ def homepage():
     image_entities = list(query.fetch())
 
     # Return a Jinja2 HTML template and pass in image_entities as a parameter.
-    return render_template('homepage.html', image_entities=image_entities)
+    return render_template('homepage.HTML', image_entities=image_entities)
 
 
 @app.route('/upload_photo', methods=['GET', 'POST'])
@@ -53,22 +53,9 @@ def upload_photo():
     # Use the Cloud Vision client to detect a face for our image.
     source_uri = 'gs://{}/{}'.format(CLOUD_STORAGE_BUCKET, blob.name)
     image = vision.types.Image(source=vision.types.ImageSource(gcs_image_uri=source_uri))
-    response_text=client.document_text_detection(image=image)
+    response=vision_client.document_text_detection(image=image)
 
-    docu = response_text.full_text_annotation.text
-
-    text_client =  texttospeech.TextToSpeechClient()
-    synthesis_input = texttospeech.types.SynthesisInput(text=docu)
-    voice = texttospeech.types.VoiceSelectionParams(language_code='en-US',ssml_gender=texttospeech.enums.SsmlVoiceGender.NEUTRAL)
-    audio_config = texttospeech.types.AudioConfig(audio_encoding=texttospeech.enums.AudioEncoding.MP3)
-    response_audio =  client.synthesize_speech(synthesis_input, voice, audio_config)
-
-    blob2 = bucket.blob(photo.filename)
-    with open('output.mp3', 'wb') as out:
-        # Write the response to the output file.
-        out.write(response_audio.audio_content)
-        blob2.upload_from_file(out)
-    blob2.make_public()
+    docu = response.full_text_annotation.text
 
     # Create a Cloud Datastore client.
     datastore_client = datastore.Client()
