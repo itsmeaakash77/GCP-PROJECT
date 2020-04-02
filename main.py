@@ -7,7 +7,7 @@ from flask import Flask, redirect, render_template, request
 from google.cloud import datastore
 from google.cloud import storage
 from google.cloud import vision
-
+from google.cloud import texttospeech
 
 CLOUD_STORAGE_BUCKET = os.environ.get('CLOUD_STORAGE_BUCKET')
 
@@ -64,11 +64,15 @@ def upload_photo():
     audio_config=texttospeech.types.AudioConfig(audio_encoding=texttospeech.enums.AudioEncoding.MP3)
     audio_response=text_client.synthesize_speech(synthesis_text,voice,audio_config)
     
-    blob1=bucket.blob('voice.mp3')
-    with open('output.mp3','wb') as out:
-       out.write(audio_response.audio_content)
+   
+    blob2=bucket.blob('output.mp3')
+    with open('output.mp3','wb') as output:
+       output.write(audio_response.audio_content)
        print('content written')
-       blob1.upload_from_file(out)
+   
+    with open('output.mp3','rb') as output:
+        blob2.upload_from_file(output)
+    blob2.make_public() 
     
     
     # Create a Cloud Datastore client.
@@ -89,7 +93,7 @@ def upload_photo():
     # Construct the new entity using the key. Set dictionary values for entity
     # keys blob_name, storage_public_url, timestamp, and joy.
     entity = datastore.Entity(key)
-    entity['blob_name'] = blob.out
+    entity['blob_name'] = name
     entity['image_public_url'] = blob.public_url
     entity['timestamp'] = current_datetime
     entity['joy'] = docu
