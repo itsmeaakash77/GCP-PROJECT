@@ -26,7 +26,7 @@ def homepage():
     image_entities = list(query.fetch())
 
     # Return a Jinja2 HTML template and pass in image_entities as a parameter.
-    return render_template('homepage.HTML', image_entities=image_entities)
+    return render_template('homepage.html', image_entities=image_entities)
 
 
 @app.route('/upload_photo', methods=['GET', 'POST'])
