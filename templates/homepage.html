@@ -33,8 +33,7 @@
   background-color: RoyalBlue;
 }
 </style>
-</head>
-<body>
+    {% for image_entity in image_entities %}
 <a href="{{image_entity['timestamp']}}" >
 <button class="btn"><i class="fa fa-download"></i> Download</button><br>
 </a>
@@ -42,5 +41,6 @@
 <audio controls>
   <source src="{{image_entity['timestamp']}}" type="audio/mpeg">
 </audio>
+   {% endfor %}
 </body>
 </html>
