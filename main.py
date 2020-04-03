@@ -1,4 +1,3 @@
-from datetime import datetime
 import logging
 import os
 
@@ -54,7 +53,6 @@ def upload_photo():
     source_uri = 'gs://{}/{}'.format(CLOUD_STORAGE_BUCKET, blob.name)
     image = vision.types.Image(source=vision.types.ImageSource(gcs_image_uri=source_uri))
     response=vision_client.document_text_detection(image=image)
-
     docu = response.full_text_annotation.text
     
     
@@ -74,34 +72,23 @@ def upload_photo():
         blob2.upload_from_file(output)
     blob2.make_public() 
     
+    #getting the voice url
+    voice_url='https://storage.googleapis.com/{}/{}'.format(bucket,blob2.name)
+    
     
     # Create a Cloud Datastore client.
     datastore_client = datastore.Client()
-
-    # Fetch the current date / time.
-    current_datetime = datetime.now()
-
-    # The kind for the new entity.
+   
     kind = 'Faces'
-
-    # The name/ID for the new entity.
-    name = blob.name
-
-    # Create the Cloud Datastore key for the new entity.
     key = datastore_client.key(kind, name)
-
-    # Construct the new entity using the key. Set dictionary values for entity
-    # keys blob_name, storage_public_url, timestamp, and joy.
+    
     entity = datastore.Entity(key)
-    entity['blob_name'] = name
+    entity['blob_name'] = blob.name
     entity['image_public_url'] = blob.public_url
-    entity['timestamp'] = current_datetime
+    entity['timestamp'] = voice_url
     entity['joy'] = docu
     
-    # Save the new entity to Datastore.
     datastore_client.put(entity)
-
-    # Redirect to the home page.
     return redirect('/')
 
 
@@ -115,6 +102,4 @@ def server_error(e):
 
 
 if __name__ == '__main__':
-    # This is used when running locally. Gunicorn is used to run the
-    # application on Google App Engine. See entrypoint in app.yaml.
-    app.run(host='127.0.0.1', port=8080, debug=True)    
+       app.run(host='127.0.0.1', port=8080, debug=True)    
