@@ -3,8 +3,8 @@
     <h1>Google Cloud Platform - Text - extraction from images </h1>
     <p> Submitted by        <br>      
       B.Aakash (12203004) II year B. Tech CSE <br>
-      Y. Leela Soundarya(121004145) III year B.Tech ECE<br>
       M S Sucharita(121004248) III year B.Tech ECE<br>
+      Y. Leela Soundarya(121004145) III year B.Tech ECE<br>
     </p>
     <br>
     <form action="upload_photo" method="POST" enctype="multipart/form-data">
@@ -14,7 +14,7 @@
     {% for image_entity in image_entities %}
       <img src="{{image_entity['image_public_url']}}" width=200 height=200>
       <p>{{image_entity['blob_name']}} was uploaded.</p>
-      <p>The extracted text is:-  {{image_entity['joy']}}</p>
+      <p>The text found in the image is:-  {{image_entity['joy']}}</p>
     {% endfor %}
     <p>The audio file is given below</p>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
