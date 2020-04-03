@@ -80,7 +80,7 @@ def upload_photo():
     datastore_client = datastore.Client()
    
     kind = 'Faces'
-    key = datastore_client.key(kind, name)
+    key = datastore_client.key(kind, blob.name)
     
     entity = datastore.Entity(key)
     entity['blob_name'] = blob.name
