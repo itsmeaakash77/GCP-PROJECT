@@ -73,7 +73,7 @@ def upload_photo():
     blob2.make_public() 
     
     #getting the voice url
-    voice_url='https://storage.googleapis.com/{}/{}'.format(bucket,blob2.name)
+    voice_url='https://storage.googleapis.com/{}/{}'.format(CLOUD_STORAGE_BUCKET,blob2.name)
     
     
     # Create a Cloud Datastore client.
