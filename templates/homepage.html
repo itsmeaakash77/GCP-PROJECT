@@ -54,8 +54,9 @@
 		{% for image_entity in image_entities %}
 		<div class="font">
 		    <img src="{{image_entity['image_public_url']}}" width=300 height=300>
-		    <p class="te">{{image_entity['blob_name']}} was uploaded.</p>
-		    <p>The text found in the image is:-  {{image_entity['joy']}}</p>
+		    <p class="text-div">{{image_entity['blob_name']}} was uploaded.</p>
+			<p>The text found in the image is</p><br>
+			<p>{{image_entity['joy']}}</p>
 		    <p>The audio file is given below</p>
 		    <a href="{{image_entity['timestamp']}}" >
 		    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
