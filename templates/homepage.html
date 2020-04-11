@@ -1,46 +1,73 @@
+<!DOCTYPE html>
 <html>
-  <body>
-    <h1>Google Cloud Platform - Text - extraction from images </h1>
-    <p> Submitted by        <br>      
-      B.Aakash (12203004) II year B. Tech CSE <br>
-      M S Sucharita(121004248) III year B.Tech ECE<br>
-      Y. Leela Soundarya(121004145) III year B.Tech ECE<br>
-    </p>
-    <br>
-    <form action="upload_photo" method="POST" enctype="multipart/form-data">
-      <h4>Upload File: <input type="file" name="file"><br></h4>
-      <input type="submit" name="submit" value="Submit">
-    </form>
-    {% for image_entity in image_entities %}
-      <img src="{{image_entity['image_public_url']}}" width=200 height=200>
-      <p>{{image_entity['blob_name']}} was uploaded.</p>
-      <p>The text found in the image is:-  {{image_entity['joy']}}</p>
-    {% endfor %}
-    <p>The audio file is given below</p>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<style>
-.btn {
-  background-color: DodgerBlue;
-  border: none;
-  color: white;
-  padding: 12px 30px;
-  cursor: pointer;
-  font-size: 20px;
-}
+<head>
+	<title>GCP Image to Audio Conversion</title>
+</head>
+<body>
+	<h1 class="header-element">Google Cloud Platform Image to Audio Conversion</h1><br>
+	<h2 class="header-element">-B.Aakash</h2>
+	<div style="text-align: center;">
+		<div class="font">
+		<form action="upload_photo" method="POST" enctype="multipart/form-data">
+	        <h4>Select the file <input type="file" name="file"><br></h4>
+	        <input type="submit" name="submit" value="Submit">
+    	</form>
+    	</div>
+	</div>
+	<style>
+	.btn {
+	  background-color: DodgerBlue;
+	  border: none;
+	  color: white;
+	  padding: 12px 30px;
+	  cursor: pointer;
+	  font-size: 20px;
+	}
+	/* Darker background on mouse-over */
+	.btn:hover {
+	  background-color: RoyalBlue;
+	}
+	.font{
+		text-align: center;
+		font-family:"Aerial"
+	}
+	.text-div{
+		color: black;
+		font-size: 25px;
+		padding-top:5%;
+		margin-right: 15%;
+		margin-left: 15%;
+		display:inline-block;
+	}
+	.header-element{
+		font-family:"Lucida Handwriting","Cambria","Times New Roman";
+		font-size: 35px;
+		color: black;
+		width:40%;
+		display: inline;
+		padding-right: 5%;
+		padding-left: 5%;
+	}
 
-/* Darker background on mouse-over */
-.btn:hover {
-  background-color: RoyalBlue;
-}
-</style>
-    {% for image_entity in image_entities %}
-<a href="{{image_entity['timestamp']}}" >
-<button class="btn"><i class="fa fa-download"></i> Download</button><br>
-</a>
-<p>Or just listen to the text extracted</p><br>
-<audio controls>
-  <source src="{{image_entity['timestamp']}}" type="audio/mpeg">
-</audio>
-   {% endfor %}
+	</style>
+	<div class="text-div">
+		{% for image_entity in image_entities %}
+		<div class="font">
+		    <img src="{{image_entity['image_public_url']}}" width=300 height=300>
+		    <p class="te">{{image_entity['blob_name']}} was uploaded.</p>
+		    <p>The text found in the image is:-  {{image_entity['joy']}}</p>
+		    <p>The audio file is given below</p>
+		    <a href="{{image_entity['timestamp']}}" >
+		    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+			<button class="btn"><i class="fa fa-download"></i> Download</button><br>
+			</a>
+			<p>Or just listen to the text extracted</p><br>
+			<audio controls>
+			  <source src="{{image_entity['timestamp']}}" type="audio/mpeg">
+			</audio>
+		</div>
+    	{% endfor %}
+	</div>
+	
 </body>
 </html>
