@@ -93,8 +93,8 @@ def upload_photo():
     key = datastore_client.key(kind, blob1.name)
     
     entity = datastore.Entity(key)
-    entity['blob_name'] = blob.name
-    entity['image_public_url'] = blob.public_url
+    entity['blob_name'] = blob1.name
+    entity['image_public_url'] = blob1.public_url
     entity['timestamp'] = voice_url
     entity['joy'] = docu
     
