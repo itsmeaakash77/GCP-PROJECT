@@ -1,2 +1,2 @@
 
-git clone https://github.com/itsmeaakash77/GCP-PROJECT.git
+git clone https://github.com/aakash-cse/GCP-PROJECT.git
