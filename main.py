@@ -71,13 +71,14 @@ def upload_photo():
     audio_response=text_client.synthesize_speech(synthesis_text,voice,audio_config)
     
     # Creating a blob for the output audio file
-    blob2=bucket.blob('output.mp3')
+    audio_file = '{}.mp3'.format(blob1.name)
+    blob2=bucket.blob(audio_file)
     # Converting the audio response as a 'output.mp3'
-    with open('output.mp3','wb') as output:
+    with open(audio_file,'wb') as output:
        output.write(audio_response.audio_content)
        print('content written')
     # Now converting the output file into the blob2
-    with open('output.mp3','rb') as output:
+    with open(audio_file,'rb') as output:
         blob2.upload_from_file(output)
     #Now making the blob2 public to access the data publicly
     blob2.make_public() 
@@ -114,4 +115,4 @@ def server_error(e):
 
 
 if __name__ == '__main__':
-       app.run(host='127.0.0.1', port=8080, debug=True)    
+    app.run(host='127.0.0.1', port=8080, debug=True) 
