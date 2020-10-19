@@ -1,4 +1,4 @@
-# MAGE-ITTA
+# MAGE-ITTA ( Web application which converts the text found in the image to audio using GCP)
 
 [![Open in Cloud Shell][shell_img]][shell_link]
 
