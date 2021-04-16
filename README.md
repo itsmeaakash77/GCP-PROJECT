@@ -1,5 +1,8 @@
 # MAGE-ITTA ( Web application which converts the text found in the image to audio using GCP)
 
+[output_img]:output/output.png
+> The steps followed are here:
+
 [![Open in Cloud Shell][shell_img]][shell_link]
 
 [shell_img]: http://gstatic.com/cloudssh/images/open-btn.png
