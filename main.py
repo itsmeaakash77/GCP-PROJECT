@@ -53,7 +53,7 @@ def upload_photo():
     # representing the image url as a string
     image_url = 'gs://{}/{}'.format(CLOUD_STORAGE_BUCKET, blob1.name)
     # passing the image source to vision api
-    image = vision.types.Image(source=vision.types.ImageSource(gcs_image_uri=image_url))
+    image = vision.Image(source=vision.types.ImageSource(gcs_image_uri=image_url))
     # getting the response and assigning a variable
     response=vision_client.document_text_detection(image=image)
     # convert the response as a text-document
