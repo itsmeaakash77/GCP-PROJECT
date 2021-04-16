@@ -1,6 +1,6 @@
 # MAGE-ITTA ( Web application which converts the text found in the image to audio using GCP)
 
-[output_img]:output/output.png
+[output_img]:https://github.com/aakash-cse/MAGE-ITTA/output/output.png
 > The steps followed are here:
 
 [![Open in Cloud Shell][shell_img]][shell_link]
